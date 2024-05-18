@@ -19,6 +19,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] public float tempoAtual;
     [SerializeField] public float pontos;
     [SerializeField] TMP_Text time;
+    [SerializeField] TMP_Text countdown;
     public Bloco Bloco;
     string[] lines;
     int faseAtual = 5;
@@ -44,6 +45,7 @@ public class LevelController : MonoBehaviour
     public void CarregarFase()
     {
         faseAtual++;
+        StartCoroutine(Countdown());
         Read();
         Generate();
     }
@@ -150,5 +152,16 @@ public class LevelController : MonoBehaviour
         }
         Debug.Log(sb.ToString());
 
+    }
+
+    IEnumerator Countdown(){
+        countdown.text = "3";
+        yield return new WaitForSeconds(1);
+        countdown.text = "2";
+        yield return new WaitForSeconds(1);
+        countdown.text = "1";
+        yield return new WaitForSeconds(1);
+        countdown.text = "GO!";
+        yield return new WaitForSeconds(0.1f);
     }
 }
