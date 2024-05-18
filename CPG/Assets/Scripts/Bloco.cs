@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bloco : MonoBehaviour
 {
@@ -16,12 +17,19 @@ public class Bloco : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Update()
     {
         if (marcado)
         {
             SpriteRenderer.sprite = sprite;
         }
+    }
+
+
+    public void Marcar()
+    {
+        
+        marcado = true;
     }
 }
