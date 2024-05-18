@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TMPro;
 using UnityEngine;
 
 
@@ -10,31 +11,33 @@ public class LevelController : MonoBehaviour
 {
 
     [SerializeField] public  Bloco[] listaBloco;
-    [SerializeField] public int sizeX = 64;
-    [SerializeField] public int sizeY = 64;
-    [SerializeField] public int[,] listaGabarito = new int[64,64];
-    [SerializeField] public int[,] listaMarcados = new int[64,64];
+    [SerializeField] public int sizeX = 128;
+    [SerializeField] public int sizeY = 128;
+    [SerializeField] public int[,] listaGabarito = new int[128,128];
+    [SerializeField] public int[,] listaMarcados = new int[128,128];
     [SerializeField] public float tempoLimite;
     [SerializeField] public float tempoAtual;
     [SerializeField] public float pontos;
+    [SerializeField] TMP_Text time;
     public Bloco Bloco;
     string[] lines;
-    int faseAtual = 1;
+    int faseAtual = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         Read();
         Generate();
-        tempoAtual = 0;
+        tempoAtual = tempoLimite;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(tempoAtual < tempoLimite)
+        time.text = ((int)tempoAtual).ToString();
+        if(tempoAtual > 0)
         {
-            tempoAtual += Time.deltaTime;
+            tempoAtual -= Time.deltaTime;
         }
     }
 
@@ -84,6 +87,9 @@ public class LevelController : MonoBehaviour
             case 4:
                 filePath = Application.dataPath + "/StreamingAssets/fase_4.txt";
                 break;
+            case 5:
+                filePath = Application.dataPath + "/StreamingAssets/fase_5.txt";
+                break;
             default:
                 filePath = Application.dataPath + "/StreamingAssets/fase_1.txt";
                 break;
@@ -106,6 +112,8 @@ public class LevelController : MonoBehaviour
     {
         int x = 0;
         int y = 0;
+        float xpos = transform.position.x;
+        float ypos = transform.position.y;
         // for
         for (int i = 0; i < lines.Length; i++)
         {
@@ -114,20 +122,18 @@ public class LevelController : MonoBehaviour
                 Bloco b = Instantiate(Bloco, transform);
                 b.x = x;
                 b.y = y;
-                b.transform.position = new Vector3(x, y, 0);
+                b.transform.position = new Vector3(xpos, ypos, 0);
                 x++;
+                xpos += 0.075f;
                 if (lines[i][j] == '1')
                 {
-                    b.Marcar();
                     listaGabarito[i, j] = 1;
-                }
-                else
-                {
-                    listaGabarito[i, j] = 0;
                 }
             }
             y++;
+            ypos += 0.075f;
             x = 0;
+            xpos = transform.position.x;
         }
 
 

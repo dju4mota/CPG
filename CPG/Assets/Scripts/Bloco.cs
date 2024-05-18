@@ -17,19 +17,16 @@ public class Bloco : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-
-    public void Update()
-    {
-        if (marcado)
-        {
-            SpriteRenderer.sprite = sprite;
+    void OnTriggerEnter2D(Collider2D col){
+        if(col.gameObject.CompareTag("Player")){
+            Marcar();
         }
     }
-
 
     public void Marcar()
     {
         
         marcado = true;
+        SpriteRenderer.sprite = sprite;
     }
 }

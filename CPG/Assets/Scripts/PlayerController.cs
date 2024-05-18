@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float powerTime;
     [SerializeField] float KBForce;
+    [SerializeField] float bounds;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb2d;
     public GameObject follow;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+   
     void Walk(){
       Vector3 direction = follow.transform.position - transform.position;  
       transform.position = transform.position + (moveSpeed * Time.deltaTime * direction);
