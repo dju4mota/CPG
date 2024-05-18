@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bloco
+  - Cow
+  - Pum
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BackGround
   - Water
   - UI
   - 
