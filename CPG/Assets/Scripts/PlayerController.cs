@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float KBForce;
     [SerializeField] float bounds;
     private SpriteRenderer spriteRenderer;
+    private AnimationController anim;
     private Rigidbody2D rb2d;
     public GameObject follow;
     public GameObject fartArea;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<AnimationController>();
         rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q) && isWalking){
             StartCoroutine(Pum());
+            anim.ChangeAnimationState("Fart");
         }
     }
 
@@ -46,6 +49,24 @@ public class PlayerController : MonoBehaviour
     void Walk(){
       Vector3 direction = follow.transform.position - transform.position;  
       transform.position = transform.position + (moveSpeed * Time.deltaTime * direction);
+      Animation(direction);
+    }
+
+    void Animation(Vector3 dir){
+        Debug.Log(dir);
+        if(Mathf.Abs(dir.x) > Mathf.Abs(dir.y)){
+            if(dir.x > 0)
+                anim.ChangeAnimationState("Walk_Right");
+            else{
+                anim.ChangeAnimationState("Walk_Left");
+            }
+        }else{
+             if(dir.y > 0)
+                anim.ChangeAnimationState("Walk_Top");
+            else{
+                anim.ChangeAnimationState("Walk_Bottom");
+            }
+        }
     }
 
     IEnumerator Pum(){
@@ -58,8 +79,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Knockback(Vector3 from, Vector3 to)
     {
-        Debug.Log("from " + from);
-        Debug.Log("to " + to);
         isWalking = false;
         float elapsed = 0f;
         float duration = 0.125f;
