@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-    LevelController levelController;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,8 @@ public class StartMenu : MonoBehaviour
 
     public void ButtonStart()
     {
-        levelController.CarregarFase();        
+        
+        SceneManager.LoadScene("Felipe");      
     }
 
 }

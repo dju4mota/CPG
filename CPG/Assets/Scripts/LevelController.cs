@@ -19,34 +19,51 @@ public class LevelController : MonoBehaviour
     [SerializeField] public float tempoAtual;
     [SerializeField] public float pontos;
     [SerializeField] TMP_Text time;
+    [SerializeField] GameObject countdownWindow;
+    [SerializeField] GameObject completedMenu;
+    [SerializeField] TMP_Text point_count;
     [SerializeField] TMP_Text countdown;
     public Bloco Bloco;
     string[] lines;
-    int faseAtual = 5;
+    int faseAtual = 6;
+
+    private bool freeRoam = false;
+    [SerializeField] PlayerController playerController;
+    [SerializeField] CowController[] cow;
 
     // Start is called before the first frame update
     void Start()
     {
+        CarregarFase();
     }
 
     // Update is called once per frame
     void Update()
     {
         time.text = ((int)tempoAtual).ToString();
-        if(tempoAtual > 0)
+        if(tempoAtual > 0 && freeRoam)
         {
             tempoAtual -= Time.deltaTime;
         }
 
-        if (tempoAtual <= 0 || Input.GetKeyDown(KeyCode.Return))
+        if ((tempoAtual <= 0 || Input.GetKeyDown(KeyCode.Return)) && freeRoam)
         {
             End();
+        }
+
+        if(freeRoam){
+            playerController.HandleUpdate();
+            for(int i = 0; i < cow.Length; i++){
+                cow[i].HandleUpdate();
+            }
         }
     }
 
     public void End()
     {
        CalculaPontos();
+       freeRoam = false;
+       completedMenu.SetActive(true);
         // para player
         
     }
@@ -63,6 +80,7 @@ public class LevelController : MonoBehaviour
 
     public void CalculaPontos()
     {
+        pontos = 0;
         for (int i = 0; i < sizeX; i++)
         {
             for (int j = 0; j < sizeY; j++)
@@ -73,9 +91,8 @@ public class LevelController : MonoBehaviour
                 }
             }
         }
-        Debug.Log("pontos: " + pontos);
-        pontos += tempoAtual; 
-        Debug.Log("ponto com tempo" + pontos);
+        //pontos += tempoAtual;
+        point_count.text = "Pontos: " + ((int)pontos/5).ToString(); 
     }
 
 
@@ -98,6 +115,12 @@ public class LevelController : MonoBehaviour
                 break;
             case 5:
                 filePath = Application.dataPath + "/StreamingAssets/fase_5.txt";
+                break;
+            case 6:
+                filePath = Application.dataPath + "/StreamingAssets/fase_6.txt";
+                break;
+            case 7:
+                filePath = Application.dataPath + "/StreamingAssets/fase_7.txt";
                 break;
             default:
                 filePath = Application.dataPath + "/StreamingAssets/fase_1.txt";
@@ -131,12 +154,13 @@ public class LevelController : MonoBehaviour
                 Bloco b = Instantiate(Bloco, transform);
                 b.x = x;
                 b.y = y;
-                b.transform.position = new Vector3(xpos, ypos, 0);
+                b.transform.position = new Vector3(xpos,ypos, 0);
                 x++;
                 xpos += 0.075f;
                 if (lines[i][j] == '1')
                 {
                     listaGabarito[i, j] = 1;
+                    //b.Target();
                 }
             }
             y++;
@@ -145,7 +169,7 @@ public class LevelController : MonoBehaviour
             xpos = transform.position.x;
         }
 
-
+/*
         // so printa o gabarito pra testar
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < listaGabarito.GetLength(0); i++)
@@ -157,11 +181,12 @@ public class LevelController : MonoBehaviour
             }
             sb.AppendLine();
         }
-        Debug.Log(sb.ToString());
+        Debug.Log(sb.ToString());*/
 
     }
 
     IEnumerator Countdown(){
+        countdownWindow.SetActive(true);
         countdown.text = "3";
         yield return new WaitForSeconds(1);
         countdown.text = "2";
@@ -169,6 +194,8 @@ public class LevelController : MonoBehaviour
         countdown.text = "1";
         yield return new WaitForSeconds(1);
         countdown.text = "GO!";
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1);
+        freeRoam = true;
+        countdownWindow.SetActive(false);
     }
 }

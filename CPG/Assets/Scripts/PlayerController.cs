@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void HandleUpdate()
     {
         if(isWalking){
             Walk();
@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col){
         if(col.gameObject.CompareTag("Cow"))
         {
-            var kb = new Vector2((transform.position.x - col.transform.position.x)*KBForce, (transform.position.y - col.transform.position.y)*KBForce);
-            StartCoroutine(Knockback(transform.position, kb));
+            var kb = new Vector2(transform.position.x - col.transform.position.x, transform.position.y - col.transform.position.y);
+            StartCoroutine(Knockback(transform.position, kb*KBForce));
         }
     }
 
@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Knockback(Vector3 from, Vector3 to)
     {
+        Debug.Log("from " + from);
+        Debug.Log("to " + to);
         isWalking = false;
         float elapsed = 0f;
         float duration = 0.125f;
@@ -66,13 +68,13 @@ public class PlayerController : MonoBehaviour
         {
             float t = elapsed / duration;
 
-            transform.localPosition = Vector3.Lerp(from, to, t);
+            transform.position = Vector3.Lerp(from, to, t);
             elapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = to;
+        transform.position = to;
         isWalking = true;
     }
 

@@ -15,7 +15,7 @@ public class CowController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update(){
+    public void HandleUpdate(){
         if(transform.position.x > bounds.x || transform.position.x < -bounds.x){
             direction.x = -direction.x;
         }
@@ -23,7 +23,17 @@ public class CowController : MonoBehaviour
             direction.y = -direction.y;
         }
         if(isWalking){
+            int x = Random.Range(0,200);
+            if(x == 0){
+                int s = Random.Range(1,4);
+                StartCoroutine(Stop(s));
+            }else if(x == 1){
+                direction.x = -direction.x;
+            }else if(x==2){
+                direction.y = -direction.y;
+            }
             transform.position = transform.position + (moveSpeed * Time.deltaTime * direction);
+
         }
     }
     void OnTriggerEnter2D(Collider2D col){
@@ -51,5 +61,11 @@ public class CowController : MonoBehaviour
 
         transform.localPosition = to;
         isWalking = true;
+    }
+
+    IEnumerator Stop(int s){
+        isWalking = false;
+        yield return new WaitForSeconds(s);
+        isWalking = true; 
     }
 }

@@ -11,8 +11,9 @@ public class Bloco : MonoBehaviour
     public bool marcado = false;
     SpriteRenderer SpriteRenderer;
     [ SerializeField] Sprite sprite;
+    [ SerializeField] Sprite spriteTarget;
 
-    void Start()
+    public void Awake()
     {
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -25,8 +26,13 @@ public class Bloco : MonoBehaviour
 
     public void Marcar()
     {
-        
         marcado = true;
         SpriteRenderer.sprite = sprite;
     }
+
+    public void Target(){
+        SpriteRenderer.sprite = spriteTarget;
+    }
+
+    
 }

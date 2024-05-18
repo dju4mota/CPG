@@ -41,6 +41,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Blocks
+    uniqueID: 2432302605
+    locked: 0
+  - name: Entities
+    uniqueID: 1566872637
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
