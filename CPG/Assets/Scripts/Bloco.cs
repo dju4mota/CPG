@@ -8,15 +8,20 @@ public class Bloco : MonoBehaviour
     public int x;
     public int y;
     public bool marcado = false;
+    SpriteRenderer SpriteRenderer;
+    [ SerializeField] Sprite sprite;
 
     void Start()
     {
-        
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (marcado)
+        {
+            SpriteRenderer.sprite = sprite;
+        }
     }
 }
