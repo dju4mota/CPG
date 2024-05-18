@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Knockback(Vector3 from, Vector3 to)
     {
         isWalking = false;
-        Debug.Log(from + to);
         float elapsed = 0f;
         float duration = 0.125f;
 
