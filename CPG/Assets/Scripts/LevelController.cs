@@ -19,6 +19,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] public float tempoAtual;
     [SerializeField] public float pontos;
     [SerializeField] TMP_Text time;
+    [SerializeField] TMP_Text countdown;
     public Bloco Bloco;
     string[] lines;
     int faseAtual = 5;
@@ -26,9 +27,6 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Read();
-        Generate();
-        tempoAtual = tempoLimite;
     }
 
     // Update is called once per frame
@@ -39,11 +37,26 @@ public class LevelController : MonoBehaviour
         {
             tempoAtual -= Time.deltaTime;
         }
+
+        if (tempoAtual <= 0 || Input.GetKeyDown(KeyCode.Return))
+        {
+            End();
+        }
     }
+
+    public void End()
+    {
+       CalculaPontos();
+        // para player
+        
+    }
+
 
     public void CarregarFase()
     {
+        tempoAtual = tempoLimite;
         faseAtual++;
+        StartCoroutine(Countdown());
         Read();
         Generate();
     }
@@ -58,14 +71,10 @@ public class LevelController : MonoBehaviour
                 {
                     pontos++;
                 }
-                else
-                {
-                    pontos--;
-                }
             }
         }
         Debug.Log("pontos: " + pontos);
-        pontos += tempoAtual - tempoLimite;
+        pontos += tempoAtual; 
         Debug.Log("ponto com tempo" + pontos);
     }
 
@@ -150,5 +159,16 @@ public class LevelController : MonoBehaviour
         }
         Debug.Log(sb.ToString());
 
+    }
+
+    IEnumerator Countdown(){
+        countdown.text = "3";
+        yield return new WaitForSeconds(1);
+        countdown.text = "2";
+        yield return new WaitForSeconds(1);
+        countdown.text = "1";
+        yield return new WaitForSeconds(1);
+        countdown.text = "GO!";
+        yield return new WaitForSeconds(0.1f);
     }
 }
