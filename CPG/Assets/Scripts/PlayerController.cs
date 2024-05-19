@@ -53,7 +53,6 @@ public class PlayerController : MonoBehaviour
     }
 
     void Animation(Vector3 dir){
-        Debug.Log(dir);
         if(Mathf.Abs(dir.x) > Mathf.Abs(dir.y)){
             if(dir.x > 0)
                 anim.ChangeAnimationState("Walk_Right");

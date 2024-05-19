@@ -20,7 +20,7 @@ public class DirectionController : MonoBehaviour
     void Update()
     {
         float dir = Input.GetAxis("Horizontal");
-        float angle = speed * dir;
+        float angle = speed * -dir;
         offset = Quaternion.Euler(0, 0, angle) * offset;
 
         transform.position = player.position + offset;

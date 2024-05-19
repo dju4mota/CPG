@@ -12,16 +12,19 @@ public class Bloco : MonoBehaviour
     SpriteRenderer SpriteRenderer;
     [ SerializeField] Sprite sprite;
     [ SerializeField] Sprite spriteTarget;
+    [SerializeField]LevelController levelController;
 
     public void Awake()
     {
         SpriteRenderer = GetComponent<SpriteRenderer>();
+        levelController = FindObjectOfType<LevelController>();
     }
 
     void OnTriggerEnter2D(Collider2D col){
         if(col.gameObject.CompareTag("Player")){
             Marcar();
-        }
+            levelController.listaMarcados[x,y] = 1;
+         }
     }
 
     public void Marcar()

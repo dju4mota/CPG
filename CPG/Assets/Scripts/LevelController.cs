@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 public class LevelController : MonoBehaviour
@@ -17,7 +18,8 @@ public class LevelController : MonoBehaviour
     [SerializeField] public int[,] listaMarcados = new int[128,128];
     [SerializeField] public float tempoLimite;
     [SerializeField] public float tempoAtual;
-    [SerializeField] public float pontos;
+    public int pontosMax;
+    [SerializeField] public int pontos;
     [SerializeField] TMP_Text time;
     [SerializeField] GameObject countdownWindow;
     [SerializeField] GameObject completedMenu;
@@ -25,7 +27,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] TMP_Text countdown;
     public Bloco Bloco;
     string[] lines;
-    int faseAtual = 6;
+    public int faseAtual;
 
     private bool freeRoam = false;
     [SerializeField] PlayerController playerController;
@@ -34,6 +36,7 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pontos = 0;
         CarregarFase();
     }
 
@@ -41,6 +44,7 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         time.text = ((int)tempoAtual).ToString();
+        point_count.text = "Pontos: " + pontos.ToString();
         if(tempoAtual > 0 && freeRoam)
         {
             tempoAtual -= Time.deltaTime;
@@ -64,7 +68,6 @@ public class LevelController : MonoBehaviour
        CalculaPontos();
        freeRoam = false;
        completedMenu.SetActive(true);
-        // para player
         
     }
 
@@ -72,7 +75,7 @@ public class LevelController : MonoBehaviour
     public void CarregarFase()
     {
         tempoAtual = tempoLimite;
-        faseAtual++;
+        
         StartCoroutine(Countdown());
         Read();
         Generate();
@@ -80,19 +83,29 @@ public class LevelController : MonoBehaviour
 
     public void CalculaPontos()
     {
-        pontos = 0;
         for (int i = 0; i < sizeX; i++)
         {
             for (int j = 0; j < sizeY; j++)
             {
-                if (listaGabarito[i,j] == listaMarcados[i,j])
+                if (listaGabarito[i,j] == listaMarcados[i,j] && listaGabarito[i,j] == 1 )
                 {
                     pontos++;
                 }
             }
         }
-        //pontos += tempoAtual;
-        point_count.text = "Pontos: " + ((int)pontos/5).ToString(); 
+        Score();
+    }
+
+    private void Score(){
+        if(pontos >= 3*pontosMax/4){
+            Debug.Log("Você é foda");
+        }else if(pontos > pontosMax/2 && pontos < 3*pontosMax/4){
+            Debug.Log("Você é meio foda");
+        }else if(pontos > pontosMax/4 && pontos < pontosMax/2){
+            Debug.Log("Você é um 1/4 foda");
+        }else{
+            Debug.Log("Você é um lixo");
+        }
     }
 
 
@@ -159,8 +172,9 @@ public class LevelController : MonoBehaviour
                 xpos += 0.075f;
                 if (lines[i][j] == '1')
                 {
+                    pontosMax++;
                     listaGabarito[i, j] = 1;
-                    //b.Target();
+                    b.Target();
                 }
             }
             y++;
@@ -168,20 +182,7 @@ public class LevelController : MonoBehaviour
             x = 0;
             xpos = transform.position.x;
         }
-
-/*
-        // so printa o gabarito pra testar
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < listaGabarito.GetLength(0); i++)
-        {
-            for (int j = 0; j < listaGabarito.GetLength(1); j++)
-            {
-                sb.Append(listaGabarito[i, j]);
-                sb.Append(' ');
-            }
-            sb.AppendLine();
-        }
-        Debug.Log(sb.ToString());*/
+    Debug.Log(pontosMax);
 
     }
 

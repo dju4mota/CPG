@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Felipe.unity
     guid: 2557f055e76bab64389e9292c8f58006
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: 95db8da7e5eb0b14286a3f2a05a64beb
   m_configObjects: {}
