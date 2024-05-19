@@ -112,6 +112,7 @@ public class LevelController : MonoBehaviour
             }
         }
         pontos += (int)tempoAtual * 10;
+        pontos += 100;
         Score();
         point_count.text = "Pontos: " + pontos.ToString();
         point_count_loss.text = "Pontos:" + pontos.ToString();

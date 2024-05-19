@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ffb19cf45cdf847a522ffaecee632c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 4
+  time: 4.2
   auto: 1
   SceneToLoad: Fase1
   Menu: {fileID: 428874639}
