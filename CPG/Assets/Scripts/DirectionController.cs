@@ -19,10 +19,13 @@ public class DirectionController : MonoBehaviour
     // Update is called once per fram
     void Update()
     {
-        float dir = Input.GetAxis("Horizontal");
-        float angle = speed * -dir;
-        offset = Quaternion.Euler(0, 0, angle) * offset;
+         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0; 
+        Vector3 direction = mousePosition - player.position;
+        direction = Vector3.ClampMagnitude(direction, dist); 
+        direction = direction.normalized * dist;      
+        Vector3 clampedMousePosition = player.position + direction;
 
-        transform.position = player.position + offset;
+        transform.position = clampedMousePosition;
     }
 }

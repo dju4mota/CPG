@@ -103,7 +103,7 @@ public class LevelController : MonoBehaviour
                 }
             }
         }
-        pontos += (int)tempoAtual * 3;
+        pontos += (int)tempoAtual * 10;
         Score();
         point_count.text = "Pontos: " + pontos.ToString();
         point_count_loss.text = "Pontos:" + pontos.ToString();
@@ -126,7 +126,7 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            if (pontos >= pontosMax/2)
+            if (pontos >= pontosMax/3)
             {
                 completedMenu.SetActive(true);
             }else{

@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float KBForce;
     [SerializeField] float bounds;
     [SerializeField] MeterController meter;
-    private SpriteRenderer spriteRenderer;
     private AnimationController anim;
-    private Rigidbody2D rb2d;
     public GameObject follow;
     public GameObject fartArea;
     private bool isWalking = true;
@@ -20,9 +18,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<AnimationController>();
-        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame

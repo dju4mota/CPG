@@ -40,7 +40,7 @@ public class CowController : MonoBehaviour
         if(col.gameObject.CompareTag("Pum"))
         {
             var to = new Vector3(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
-            StartCoroutine(RunAway(transform.position, transform.position + to*2));
+            StartCoroutine(RunAway(transform.position, transform.position + to));
         }
     }
 
