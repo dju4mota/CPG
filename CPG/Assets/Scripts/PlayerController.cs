@@ -35,12 +35,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col){
-        if(col.gameObject.CompareTag("Cow"))
-        {
-            var kb = new Vector2(transform.position.x - col.transform.position.x, transform.position.y - col.transform.position.y);
-            StartCoroutine(Knockback(transform.position, kb*KBForce));
-        }
+    public void Renzo(Collision2D col)
+    {
+        var kb = new Vector2(transform.position.x - col.transform.position.x, transform.position.y - col.transform.position.y);
+        StartCoroutine(Knockback(transform.position, kb * KBForce));
     }
 
    
