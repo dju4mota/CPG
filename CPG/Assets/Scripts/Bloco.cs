@@ -22,8 +22,18 @@ public class Bloco : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col){
         if(col.gameObject.CompareTag("Player")){
-            Marcar();
-            levelController.listaMarcados[x,y] = 1;
+            if (!marcado)
+            {
+                if(levelController.listaGabarito[x, y] ==1)
+                {
+                    Debug.Log("bateu");
+                    levelController.pontos++;
+                }
+
+                    Marcar();
+                levelController.listaMarcados[x, y] = 1;
+            }
+            
          }
     }
 
