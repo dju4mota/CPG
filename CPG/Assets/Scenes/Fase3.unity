@@ -2870,9 +2870,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3, y: 0}
+  m_Offset: {x: -0.27633238, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.29645395
 --- !u!212 &1236727063
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4866,7 +4866,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 1611918559}
+  m_Camera: {fileID: 1778644171}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
