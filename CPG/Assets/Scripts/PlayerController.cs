@@ -14,11 +14,15 @@ public class PlayerController : MonoBehaviour
     public GameObject follow;
     public GameObject fartArea;
     private bool isWalking = true;
+    public AudioSource audioP;
+    public AudioClip peido;
+    public AudioClip muu;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<AnimationController>();
+        audioP = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,6 +35,8 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Q) && isWalking && meter.fillImage.fillAmount == 1){
             meter.pum();
             StartCoroutine(Pum());
+            audioP.clip = peido;
+            audioP.Play();
             anim.ChangeAnimationState("Fart");
         }
     }
@@ -77,6 +83,8 @@ public class PlayerController : MonoBehaviour
         isWalking = false;
         float elapsed = 0f;
         float duration = 0.125f;
+        audioP.clip = muu;
+        audioP.Play();
 
         while (elapsed < duration)
         {

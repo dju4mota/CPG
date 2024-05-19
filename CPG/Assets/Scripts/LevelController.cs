@@ -12,7 +12,6 @@ using UnityEngine.SocialPlatforms.Impl;
 public class LevelController : MonoBehaviour
 {
 
-    [SerializeField] public  Bloco[] listaBloco;
     [SerializeField] public int sizeX = 128;
     [SerializeField] public int sizeY = 128;
     [SerializeField] public int[,] listaGabarito = new int[128,128];
@@ -33,6 +32,7 @@ public class LevelController : MonoBehaviour
     string[] lines;
     public int faseAtual;
     public static LevelController Instance;
+    
 
     private bool freeRoam = false;
     [SerializeField] PlayerController playerController;
