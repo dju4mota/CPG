@@ -32,14 +32,22 @@ public class LevelController : MonoBehaviour
     public Bloco Bloco;
     string[] lines;
     public int faseAtual;
+    public static LevelController Instance;
 
     private bool freeRoam = false;
     [SerializeField] PlayerController playerController;
     [SerializeField] CowController[] cow;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+
         pontos = 0;
         CarregarFase();
     }
@@ -60,9 +68,9 @@ public class LevelController : MonoBehaviour
 
         if(freeRoam){
             playerController.HandleUpdate();
-            for(int i = 0; i < cow.Length; i++){
+        /*    for(int i = 0; i < cow.Length; i++){
                 cow[i].HandleUpdate();
-            }
+            }*/
         }
     }
 

@@ -12,26 +12,19 @@ public class Bloco : MonoBehaviour
     SpriteRenderer SpriteRenderer;
     [ SerializeField] Sprite sprite;
     [ SerializeField] Sprite spriteTarget;
-    [SerializeField]LevelController levelController;
+    
 
     public void Awake()
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-        levelController = FindObjectOfType<LevelController>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();        
     }
 
     void OnTriggerEnter2D(Collider2D col){
         if(col.gameObject.CompareTag("Player")){
             if (!marcado)
-            {
-                /*if(levelController.listaGabarito[x, y] == 1)
-                {
-                    Debug.Log("bateu");
-                    levelController.pontos++;
-                }*/
-
+            {                
                 Marcar();
-                levelController.listaMarcados[x, y] = 1;
+                LevelController.Instance.listaMarcados[x, y] = 1;
             }
             
          }

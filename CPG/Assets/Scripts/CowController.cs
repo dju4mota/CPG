@@ -15,7 +15,7 @@ public class CowController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public void HandleUpdate(){
+    public void Update(){
         if(transform.position.x > bounds.x || transform.position.x < -bounds.x){
             direction.x = -direction.x;
         }
@@ -53,13 +53,13 @@ public class CowController : MonoBehaviour
         {
             float t = elapsed / duration;
 
-            transform.localPosition = Vector3.Lerp(from, to, t);
+            transform.position = Vector3.Lerp(from, to, t);
             elapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = to;
+        transform.position = to;
         isWalking = true;
     }
 
