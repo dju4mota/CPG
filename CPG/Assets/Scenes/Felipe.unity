@@ -1206,7 +1206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &668390906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c2e718d176fb384784ae02cbc671ff3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f48f4ac7d971ff4fbf5f7e8821baa77, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2989,13 +2989,14 @@ MonoBehaviour:
   tempoAtual: 0
   pontosMax: 0
   pontos: 0
+  erro: 0
   time: {fileID: 1409004273}
   countdownWindow: {fileID: 2100723220}
   completedMenu: {fileID: 1956634797}
   point_count: {fileID: 1302028072}
   countdown: {fileID: 2100723222}
   Bloco: {fileID: 156100233673003084, guid: 5f13c527def0d594c85d0e03443f77bd, type: 3}
-  faseAtual: 7
+  faseAtual: 9
   playerController: {fileID: 1886484375}
   cow:
   - {fileID: 3381904}

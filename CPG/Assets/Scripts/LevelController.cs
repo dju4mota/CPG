@@ -20,6 +20,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] public float tempoAtual;
     public int pontosMax;
     [SerializeField] public int pontos;
+    [SerializeField] public int erro;
     [SerializeField] TMP_Text time;
     [SerializeField] GameObject countdownWindow;
     [SerializeField] GameObject completedMenu;
@@ -65,7 +66,7 @@ public class LevelController : MonoBehaviour
 
     public void End()
     {
-       //CalculaPontos();
+       CalculaPontos();
        freeRoam = false;
        completedMenu.SetActive(true);
         
@@ -91,21 +92,39 @@ public class LevelController : MonoBehaviour
                 {
                     pontos++;
                 }
+                if (listaGabarito[i, j] != listaMarcados[i, j] && listaGabarito[i, j] == 0)
+                {
+                    erro++;
+                }
             }
         }
         Score();
     }
 
     private void Score(){
-        if(pontos >= 3*pontosMax/4){
-            Debug.Log("Você é foda");
-        }else if(pontos > pontosMax/2 && pontos < 3*pontosMax/4){
-            Debug.Log("Você é meio foda");
-        }else if(pontos > pontosMax/4 && pontos < pontosMax/2){
-            Debug.Log("Você é um 1/4 foda");
-        }else{
-            Debug.Log("Você é um lixo");
+
+        /*  if(pontos >= 3*pontosMax/4){
+              Debug.Log("Você é foda");
+          }else if(pontos > pontosMax/2 && pontos < 3*pontosMax/4){
+              Debug.Log("Você é meio foda");
+          }else if(pontos > pontosMax/4 && pontos < pontosMax/2){
+              Debug.Log("Você é um 1/4 foda");
+          }else{
+              Debug.Log("Você é um lixo");
+          }*/
+        if (erro > 2000)
+        {
+            Debug.Log("Perdeu");
         }
+        else
+        {
+            if (pontos >= pontosMax/4)
+            {
+                Debug.Log("Ganhou");
+            }
+        }
+       
+
     }
 
 
@@ -138,8 +157,14 @@ public class LevelController : MonoBehaviour
             case 8:
                 filePath = Application.dataPath + "/StreamingAssets/fase_8.txt";
                 break;
+            case 9:
+                filePath = Application.dataPath + "/StreamingAssets/fase_9.txt";
+                break;
+            case 10:
+                filePath = Application.dataPath + "/StreamingAssets/fase_10.txt";
+                break;
             default:
-                filePath = Application.dataPath + "/StreamingAssets/fase_1.txt";
+                filePath = Application.dataPath + "/StreamingAssets/fase_7.txt";
                 break;
 
         }
@@ -177,7 +202,7 @@ public class LevelController : MonoBehaviour
                 {
                     pontosMax++;
                     listaGabarito[i, j] = 1;
-                    b.Target();
+                    //b.Target();
                 }
             }
             y++;
