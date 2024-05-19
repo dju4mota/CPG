@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 
@@ -24,7 +25,9 @@ public class LevelController : MonoBehaviour
     [SerializeField] TMP_Text time;
     [SerializeField] GameObject countdownWindow;
     [SerializeField] GameObject completedMenu;
+    [SerializeField] GameObject failedMenu;
     [SerializeField] TMP_Text point_count;
+    [SerializeField] TMP_Text point_count_loss;
     [SerializeField] TMP_Text countdown;
     public Bloco Bloco;
     string[] lines;
@@ -45,7 +48,6 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         time.text = ((int)tempoAtual).ToString();
-        point_count.text = "Pontos: " + pontos.ToString();
         if(tempoAtual > 0 && freeRoam)
         {
             tempoAtual -= Time.deltaTime;
@@ -68,7 +70,6 @@ public class LevelController : MonoBehaviour
     {
        CalculaPontos();
        freeRoam = false;
-       completedMenu.SetActive(true);
         
     }
 
@@ -80,6 +81,10 @@ public class LevelController : MonoBehaviour
         StartCoroutine(Countdown());
         Read();
         Generate();
+    }
+
+    public void Load(string scene){
+        SceneManager.LoadScene(scene);
     }
 
     public void CalculaPontos()
@@ -98,7 +103,10 @@ public class LevelController : MonoBehaviour
                 }
             }
         }
+        pontos += (int)tempoAtual * 3;
         Score();
+        point_count.text = "Pontos: " + pontos.ToString();
+        point_count_loss.text = "Pontos:" + pontos.ToString();
     }
 
     private void Score(){
@@ -112,15 +120,17 @@ public class LevelController : MonoBehaviour
           }else{
               Debug.Log("Você é um lixo");
           }*/
-        if (erro > 2000)
+        if (erro > pontosMax)
         {
-            Debug.Log("Perdeu");
+            failedMenu.SetActive(true);
         }
         else
         {
-            if (pontos >= pontosMax/4)
+            if (pontos >= pontosMax/2)
             {
-                Debug.Log("Ganhou");
+                completedMenu.SetActive(true);
+            }else{
+                failedMenu.SetActive(true);
             }
         }
        
@@ -212,6 +222,10 @@ public class LevelController : MonoBehaviour
         }
     Debug.Log(pontosMax);
 
+    }
+
+    public void Quit(){
+        Application.Quit();
     }
 
     IEnumerator Countdown(){

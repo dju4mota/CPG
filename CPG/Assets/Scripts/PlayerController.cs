@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float powerTime;
     [SerializeField] float KBForce;
     [SerializeField] float bounds;
+    [SerializeField] MeterController meter;
     private SpriteRenderer spriteRenderer;
     private AnimationController anim;
     private Rigidbody2D rb2d;
@@ -31,7 +32,8 @@ public class PlayerController : MonoBehaviour
             Walk();
         }
 
-        if(Input.GetKeyDown(KeyCode.Q) && isWalking){
+        if(Input.GetKeyDown(KeyCode.Q) && isWalking && meter.fillImage.fillAmount == 1){
+            meter.pum();
             StartCoroutine(Pum());
             anim.ChangeAnimationState("Fart");
         }

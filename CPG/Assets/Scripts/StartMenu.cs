@@ -38,7 +38,7 @@ public class StartMenu : MonoBehaviour
     public void ButtonStart()
     {
         
-        SceneManager.LoadScene("Felipe");      
+        SceneManager.LoadScene("InitialScene");      
     }
 
 }

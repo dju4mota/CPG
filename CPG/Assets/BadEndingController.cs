@@ -6,23 +6,34 @@ using UnityEngine.SceneManagement;
 public class BadEndingController : MonoBehaviour
 {
     [SerializeField] float time;
+    [SerializeField] bool auto = false;
+    [SerializeField] string SceneToLoad;
     [SerializeField] GameObject Menu;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Run());
+        if(!auto)
+            StartCoroutine(OpenMenu());
+        else{
+            StartCoroutine(Run());
+        }
     }
 
-    public void Reset(){
-        SceneManager.LoadScene("Felipe");
+    public void Load(){
+        SceneManager.LoadScene(SceneToLoad);
     }
 
     public void Quit(){
         Application.Quit();
     }
 
-    public IEnumerator Run(){
+    public IEnumerator OpenMenu(){
         yield return new WaitForSeconds(time);
         Menu.SetActive(true);
+    }
+
+    public IEnumerator Run(){
+        yield return new WaitForSeconds(time);
+        Load();
     }
 }
