@@ -65,7 +65,7 @@ public class LevelController : MonoBehaviour
 
     public void End()
     {
-       CalculaPontos();
+       //CalculaPontos();
        freeRoam = false;
        completedMenu.SetActive(true);
         
@@ -134,6 +134,9 @@ public class LevelController : MonoBehaviour
                 break;
             case 7:
                 filePath = Application.dataPath + "/StreamingAssets/fase_7.txt";
+                break;
+            case 8:
+                filePath = Application.dataPath + "/StreamingAssets/fase_8.txt";
                 break;
             default:
                 filePath = Application.dataPath + "/StreamingAssets/fase_1.txt";
