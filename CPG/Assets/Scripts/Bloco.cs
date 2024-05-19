@@ -24,13 +24,13 @@ public class Bloco : MonoBehaviour
         if(col.gameObject.CompareTag("Player")){
             if (!marcado)
             {
-                if(levelController.listaGabarito[x, y] ==1)
+                /*if(levelController.listaGabarito[x, y] == 1)
                 {
                     Debug.Log("bateu");
                     levelController.pontos++;
-                }
+                }*/
 
-                    Marcar();
+                Marcar();
                 levelController.listaMarcados[x, y] = 1;
             }
             

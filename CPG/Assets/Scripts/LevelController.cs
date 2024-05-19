@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 
@@ -20,10 +21,13 @@ public class LevelController : MonoBehaviour
     [SerializeField] public float tempoAtual;
     public int pontosMax;
     [SerializeField] public int pontos;
+    [SerializeField] public int erro;
     [SerializeField] TMP_Text time;
     [SerializeField] GameObject countdownWindow;
     [SerializeField] GameObject completedMenu;
+    [SerializeField] GameObject failedMenu;
     [SerializeField] TMP_Text point_count;
+    [SerializeField] TMP_Text point_count_loss;
     [SerializeField] TMP_Text countdown;
     public Bloco Bloco;
     string[] lines;
@@ -44,7 +48,6 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         time.text = ((int)tempoAtual).ToString();
-        point_count.text = "Pontos: " + pontos.ToString();
         if(tempoAtual > 0 && freeRoam)
         {
             tempoAtual -= Time.deltaTime;
@@ -65,9 +68,8 @@ public class LevelController : MonoBehaviour
 
     public void End()
     {
-       //CalculaPontos();
+       CalculaPontos();
        freeRoam = false;
-       completedMenu.SetActive(true);
         
     }
 
@@ -81,6 +83,10 @@ public class LevelController : MonoBehaviour
         Generate();
     }
 
+    public void Load(string scene){
+        SceneManager.LoadScene(scene);
+    }
+
     public void CalculaPontos()
     {
         for (int i = 0; i < sizeX; i++)
@@ -91,21 +97,44 @@ public class LevelController : MonoBehaviour
                 {
                     pontos++;
                 }
+                if (listaGabarito[i, j] != listaMarcados[i, j] && listaGabarito[i, j] == 0)
+                {
+                    erro++;
+                }
             }
         }
+        pontos += (int)tempoAtual * 3;
         Score();
+        point_count.text = "Pontos: " + pontos.ToString();
+        point_count_loss.text = "Pontos:" + pontos.ToString();
     }
 
     private void Score(){
-        if(pontos >= 3*pontosMax/4){
-            Debug.Log("Você é foda");
-        }else if(pontos > pontosMax/2 && pontos < 3*pontosMax/4){
-            Debug.Log("Você é meio foda");
-        }else if(pontos > pontosMax/4 && pontos < pontosMax/2){
-            Debug.Log("Você é um 1/4 foda");
-        }else{
-            Debug.Log("Você é um lixo");
+
+        /*  if(pontos >= 3*pontosMax/4){
+              Debug.Log("Você é foda");
+          }else if(pontos > pontosMax/2 && pontos < 3*pontosMax/4){
+              Debug.Log("Você é meio foda");
+          }else if(pontos > pontosMax/4 && pontos < pontosMax/2){
+              Debug.Log("Você é um 1/4 foda");
+          }else{
+              Debug.Log("Você é um lixo");
+          }*/
+        if (erro > pontosMax)
+        {
+            failedMenu.SetActive(true);
         }
+        else
+        {
+            if (pontos >= pontosMax/2)
+            {
+                completedMenu.SetActive(true);
+            }else{
+                failedMenu.SetActive(true);
+            }
+        }
+       
+
     }
 
 
@@ -138,8 +167,14 @@ public class LevelController : MonoBehaviour
             case 8:
                 filePath = Application.dataPath + "/StreamingAssets/fase_8.txt";
                 break;
+            case 9:
+                filePath = Application.dataPath + "/StreamingAssets/fase_9.txt";
+                break;
+            case 10:
+                filePath = Application.dataPath + "/StreamingAssets/fase_10.txt";
+                break;
             default:
-                filePath = Application.dataPath + "/StreamingAssets/fase_1.txt";
+                filePath = Application.dataPath + "/StreamingAssets/fase_7.txt";
                 break;
 
         }
@@ -177,7 +212,7 @@ public class LevelController : MonoBehaviour
                 {
                     pontosMax++;
                     listaGabarito[i, j] = 1;
-                    b.Target();
+                    //b.Target();
                 }
             }
             y++;
@@ -187,6 +222,10 @@ public class LevelController : MonoBehaviour
         }
     Debug.Log(pontosMax);
 
+    }
+
+    public void Quit(){
+        Application.Quit();
     }
 
     IEnumerator Countdown(){

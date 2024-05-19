@@ -23,7 +23,7 @@ public class GoalController : MonoBehaviour
         yield return StartCoroutine(Fade(0,0.5f,0.3f));
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(Fade(0.5f,0,0.3f));
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         StartCoroutine(FadeInOut());
     }
 

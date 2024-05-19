@@ -17,15 +17,16 @@ public class MeterController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && fillImage.fillAmount == 1)
-        {
-            StopAllCoroutines();  // Stop the current filling coroutine
-            fillImage.fillAmount = 0;
-        }
+
         if(fillImage.fillAmount == 0){
             StopAllCoroutines();  // Stop the current filling coroutine
             StartCoroutine(FillBar());
         }
+    }
+
+    public void pum(){
+        StopAllCoroutines();  // Stop the current filling coroutine
+        fillImage.fillAmount = 0;
     }
 
     IEnumerator FillBar()
