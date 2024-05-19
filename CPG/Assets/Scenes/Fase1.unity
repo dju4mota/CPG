@@ -1324,7 +1324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2f48f4ac7d971ff4fbf5f7e8821baa77, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af21db0ba07abdf48a6f9dcb44953df2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3601,7 +3601,7 @@ MonoBehaviour:
   point_count_loss: {fileID: 911671282}
   countdown: {fileID: 2100723222}
   Bloco: {fileID: 156100233673003084, guid: 5f13c527def0d594c85d0e03443f77bd, type: 3}
-  faseAtual: 9
+  faseAtual: 7
   playerController: {fileID: 1886484375}
   cow:
   - {fileID: 3381904}
