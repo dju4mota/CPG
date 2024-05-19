@@ -32,14 +32,22 @@ public class LevelController : MonoBehaviour
     public Bloco Bloco;
     string[] lines;
     public int faseAtual;
+    public static LevelController Instance;
 
     private bool freeRoam = false;
     [SerializeField] PlayerController playerController;
     [SerializeField] CowController[] cow;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+
         pontos = 0;
         CarregarFase();
     }
@@ -60,9 +68,9 @@ public class LevelController : MonoBehaviour
 
         if(freeRoam){
             playerController.HandleUpdate();
-            for(int i = 0; i < cow.Length; i++){
+        /*    for(int i = 0; i < cow.Length; i++){
                 cow[i].HandleUpdate();
-            }
+            }*/
         }
     }
 
@@ -103,7 +111,7 @@ public class LevelController : MonoBehaviour
                 }
             }
         }
-        pontos += (int)tempoAtual * 3;
+        pontos += (int)tempoAtual * 10;
         Score();
         point_count.text = "Pontos: " + pontos.ToString();
         point_count_loss.text = "Pontos:" + pontos.ToString();
@@ -126,7 +134,7 @@ public class LevelController : MonoBehaviour
         }
         else
         {
-            if (pontos >= pontosMax/2)
+            if (pontos >= pontosMax/3)
             {
                 completedMenu.SetActive(true);
             }else{

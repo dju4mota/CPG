@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float KBForce;
     [SerializeField] float bounds;
     [SerializeField] MeterController meter;
-    private SpriteRenderer spriteRenderer;
     private AnimationController anim;
-    private Rigidbody2D rb2d;
     public GameObject follow;
     public GameObject fartArea;
     private bool isWalking = true;
@@ -20,9 +18,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<AnimationController>();
-        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -39,12 +35,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col){
-        if(col.gameObject.CompareTag("Cow"))
-        {
-            var kb = new Vector2(transform.position.x - col.transform.position.x, transform.position.y - col.transform.position.y);
-            StartCoroutine(Knockback(transform.position, kb*KBForce));
-        }
+    public void Renzo(Collision2D col)
+    {
+        var kb = new Vector2(transform.position.x - col.transform.position.x, transform.position.y - col.transform.position.y);
+        StartCoroutine(Knockback(transform.position, kb * KBForce));
     }
 
    

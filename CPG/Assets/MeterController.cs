@@ -8,8 +8,6 @@ public class MeterController : MonoBehaviour
     public Image fillImage;        // Reference to the fill part of the bar
     [SerializeField] float fillDuration = 4.0f; // Duration to fill the bar
 
-    private bool isFilling = false;  // Flag to check if the bar is currently filling
-
     void Start()
     {
         StartCoroutine(FillBar());
@@ -31,7 +29,6 @@ public class MeterController : MonoBehaviour
 
     IEnumerator FillBar()
     {
-        isFilling = true;
         float elapsedTime = 0f;
 
         while (elapsedTime < fillDuration)
@@ -42,6 +39,5 @@ public class MeterController : MonoBehaviour
         }
 
         fillImage.fillAmount = 1f;
-        isFilling = false;
     }
 }
