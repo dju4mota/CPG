@@ -76,7 +76,7 @@ public class LevelController : MonoBehaviour
 
     public void End()
     {
-       CalculaPontos();
+       //CalculaPontos();
        freeRoam = false;
         
     }
@@ -87,8 +87,8 @@ public class LevelController : MonoBehaviour
         tempoAtual = tempoLimite;
         
         StartCoroutine(Countdown());
-        Read();
-        Generate();
+        //Read();
+        //Generate();
     }
 
     public void Load(string scene){
@@ -129,20 +129,27 @@ public class LevelController : MonoBehaviour
           }else{
               Debug.Log("Você é um lixo");
           }*/
-        if (erro > pontosMax)
+        if (faseAtual == 10)
         {
-            failedMenu.SetActive(true);
-        }
-        else
-        {
-            if (pontos >= pontosMax/3)
+            erro -= 1000;
+            pontos += 200;
+         }
+            if (erro > pontosMax)
             {
-                completedMenu.SetActive(true);
-            }else{
                 failedMenu.SetActive(true);
             }
-        }
-       
+            else
+            {
+                if (pontos >= pontosMax / 3)
+                {
+                    completedMenu.SetActive(true);
+                }
+                else
+                {
+                    failedMenu.SetActive(true);
+                }
+            }
+        
 
     }
 
