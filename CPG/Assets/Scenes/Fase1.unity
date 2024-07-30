@@ -2352,7 +2352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &969065801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4189,7 +4189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeX: 128
   sizeY: 128
-  tempoLimite: 35
+  tempoLimite: 4
   tempoAtual: 0
   pontosMax: 0
   pontos: 0
@@ -4203,6 +4203,8 @@ MonoBehaviour:
   countdown: {fileID: 2100723222}
   Bloco: {fileID: 156100233673003084, guid: 5f13c527def0d594c85d0e03443f77bd, type: 3}
   faseAtual: 7
+  target: {fileID: 59755597}
+  pontosNecessarios: 0
   playerController: {fileID: 1886484375}
   cow:
   - {fileID: 3381904}

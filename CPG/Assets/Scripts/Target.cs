@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class targetScript : MonoBehaviour
 {
-    [SerializeField] private float tempoPassadoDentro = 0;
+    [SerializeField] public int tempoPassadoDentro = 0 ;    
+            
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        tempoPassadoDentro = Time.time;
+        tempoPassadoDentro += 1;
     }
-
 
 }

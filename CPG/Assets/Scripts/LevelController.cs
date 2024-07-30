@@ -32,7 +32,9 @@ public class LevelController : MonoBehaviour
     string[] lines;
     public int faseAtual;
     public static LevelController Instance;
-    
+    public targetScript target;
+    public int pontosNecessarios;
+
 
     private bool freeRoam = false;
     [SerializeField] PlayerController playerController;
@@ -78,7 +80,15 @@ public class LevelController : MonoBehaviour
     {
        //CalculaPontos();
        freeRoam = false;
-        
+       if(target.tempoPassadoDentro >= pontosNecessarios)
+       {
+           completedMenu.SetActive(true);
+       }
+       else
+       {
+           failedMenu.SetActive(true);
+       }
+
     }
 
 
