@@ -14,8 +14,8 @@ public class LevelController : MonoBehaviour
 
     [SerializeField] public int sizeX = 128;
     [SerializeField] public int sizeY = 128;
-    [SerializeField] public int[,] listaGabarito = new int[128,128];
-    [SerializeField] public int[,] listaMarcados = new int[128,128];
+    [SerializeField] public int[,] listaGabarito = new int[128, 128];
+    [SerializeField] public int[,] listaMarcados = new int[128, 128];
     [SerializeField] public float tempoLimite;
     [SerializeField] public float tempoAtual;
     public int pontosMax;
@@ -32,7 +32,7 @@ public class LevelController : MonoBehaviour
     string[] lines;
     public int faseAtual;
     public static LevelController Instance;
-    
+
 
     private bool freeRoam = false;
     [SerializeField] PlayerController playerController;
@@ -56,7 +56,7 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         time.text = ((int)tempoAtual).ToString();
-        if(tempoAtual > 0 && freeRoam)
+        if (tempoAtual > 0 && freeRoam)
         {
             tempoAtual -= Time.deltaTime;
         }
@@ -66,32 +66,34 @@ public class LevelController : MonoBehaviour
             End();
         }
 
-        if(freeRoam){
+        if (freeRoam)
+        {
             playerController.HandleUpdate();
-        /*    for(int i = 0; i < cow.Length; i++){
-                cow[i].HandleUpdate();
-            }*/
+            /*    for(int i = 0; i < cow.Length; i++){
+                    cow[i].HandleUpdate();
+                }*/
         }
     }
 
     public void End()
     {
-       //CalculaPontos();
-       freeRoam = false;
-        
+        CalculaPontos();
+        freeRoam = false;
+
     }
 
 
     public void CarregarFase()
     {
         tempoAtual = tempoLimite;
-        
+
         StartCoroutine(Countdown());
-        //Read();
-        //Generate();
+        Read();
+        Generate();
     }
 
-    public void Load(string scene){
+    public void Load(string scene)
+    {
         SceneManager.LoadScene(scene);
     }
 
@@ -101,7 +103,7 @@ public class LevelController : MonoBehaviour
         {
             for (int j = 0; j < sizeY; j++)
             {
-                if (listaGabarito[i,j] == listaMarcados[i,j] && listaGabarito[i,j] == 1 )
+                if (listaGabarito[i, j] == listaMarcados[i, j] && listaGabarito[i, j] == 1)
                 {
                     pontos++;
                 }
@@ -118,7 +120,8 @@ public class LevelController : MonoBehaviour
         point_count_loss.text = "Pontos:" + pontos.ToString();
     }
 
-    private void Score(){
+    private void Score()
+    {
 
         /*  if(pontos >= 3*pontosMax/4){
               Debug.Log("Você é foda");
@@ -129,27 +132,22 @@ public class LevelController : MonoBehaviour
           }else{
               Debug.Log("Você é um lixo");
           }*/
-        if (faseAtual == 10)
+        if (erro > pontosMax)
         {
-            erro -= 1000;
-            pontos += 200;
-         }
-            if (erro > pontosMax)
+            failedMenu.SetActive(true);
+        }
+        else
+        {
+            if (pontos >= pontosMax / 3)
             {
-                failedMenu.SetActive(true);
+                completedMenu.SetActive(true);
             }
             else
             {
-                if (pontos >= pontosMax / 3)
-                {
-                    completedMenu.SetActive(true);
-                }
-                else
-                {
-                    failedMenu.SetActive(true);
-                }
+                failedMenu.SetActive(true);
             }
-        
+        }
+
 
     }
 
@@ -194,7 +192,7 @@ public class LevelController : MonoBehaviour
                 break;
 
         }
-        
+
 
 
         if (File.Exists(filePath))
@@ -221,7 +219,7 @@ public class LevelController : MonoBehaviour
                 Bloco b = Instantiate(Bloco, transform);
                 b.x = x;
                 b.y = y;
-                b.transform.position = new Vector3(xpos,ypos, 0);
+                b.transform.position = new Vector3(xpos, ypos, 0);
                 x++;
                 xpos += 0.075f;
                 if (lines[i][j] == '1')
@@ -236,15 +234,17 @@ public class LevelController : MonoBehaviour
             x = 0;
             xpos = transform.position.x;
         }
-    Debug.Log(pontosMax);
+        Debug.Log(pontosMax);
 
     }
 
-    public void Quit(){
+    public void Quit()
+    {
         Application.Quit();
     }
 
-    IEnumerator Countdown(){
+    IEnumerator Countdown()
+    {
         countdownWindow.SetActive(true);
         countdown.text = "3";
         yield return new WaitForSeconds(1);
